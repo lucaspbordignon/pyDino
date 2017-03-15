@@ -1,2 +1,2 @@
-# Dino-
-Dino
+# pyDino
+A simple game.
