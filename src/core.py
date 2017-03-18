@@ -13,8 +13,10 @@ class game_runner():
         # Displays the window
         self.screen = pygame.display.set_mode(self.screen_settings['size'])
         pygame.display.set_caption(self.screen_settings['caption'])
+
         actual_scene = 'main_menu'
         game_running = 1
+
         while game_running:
             for event in pygame.event.get():
                 if (event.type == pygame.QUIT):
