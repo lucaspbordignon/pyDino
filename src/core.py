@@ -5,7 +5,7 @@ from character_menu import character_menu
 
 class game_runner():
     """
-        Class used to run an instace of a game. This class controls all the
+        Class used to run an instace of the game. This class controls all the
     game, including transitions among the different scenes and menus.
     """
     def __init__(self):
@@ -28,7 +28,6 @@ class game_runner():
 
     def choose_char(self):
         char_menu = character_menu(self.screen, self.screen_settings)
-        # menu = menu_controller.menu(self.screen, self.screen_settings)
         self.game_running, self.actual_scene, props = char_menu.show()
         if (props is not None):
             self.actual_character['name'] = props['name']

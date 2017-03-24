@@ -14,7 +14,11 @@ class character_menu():
         # Setup
         pygame.display.set_caption(self.caption + ': Choose Character')
         self.last_mouse_click = (-1, -1)
-        char_properties = {}
+        actual_dino_type = 0
+        dino_pos = (100, 350)
+        char_types = {
+            0: 'default',
+        }
         while True:
             for event in pygame.event.get():
                 if (event.type == pygame.QUIT):
@@ -25,5 +29,12 @@ class character_menu():
             self.screen.fill(self.background_color)
             self.screen.blit(self.resources['ground'], (0, self.screen_size[1] - 30))
 
+            dino_img = self.load_dino_img(char_types[actual_dino_type])
+            self.screen.blit(dino_img, dino_pos)
+
             # Updates the game display
             pygame.display.flip()
+
+    def load_dino_img(self, dino_type):
+        img = load_image(str(dino_type) + '.png')
+        return img
