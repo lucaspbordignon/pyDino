@@ -1,5 +1,6 @@
 from utils import *
-import menu_controller
+from main_menu import main_menu
+from character_menu import character_menu
 
 
 class game_runner():
@@ -22,12 +23,13 @@ class game_runner():
         self.game_running = 1
 
     def main_menu(self):
-        menu = menu_controller.menu(self.screen, self.screen_settings)
-        self.game_running, self.actual_scene = menu.show_initial_menu()
+        menu = main_menu(self.screen, self.screen_settings)
+        self.game_running, self.actual_scene = menu.show()
 
     def choose_char(self):
-        menu = menu_controller.menu(self.screen, self.screen_settings)
-        self.game_running, self.actual_scene, props = menu.show_choose_char()
+        char_menu = character_menu(self.screen, self.screen_settings)
+        # menu = menu_controller.menu(self.screen, self.screen_settings)
+        self.game_running, self.actual_scene, props = char_menu.show()
         if (props is not None):
             self.actual_character['name'] = props['name']
 

@@ -1,7 +1,7 @@
 from utils import *
 
 
-class menu():
+class main_menu():
     def __init__(self, surface, screen_settings):
         self.resources = {}
         self.screen = surface
@@ -10,7 +10,7 @@ class menu():
         self.caption = screen_settings['caption']
         self.resources['ground'] = load_image('ground.png')
 
-    def show_initial_menu(self):
+    def show(self):
         # Setup
         pygame.display.set_caption(self.caption + ': Main Menu')
         self.last_mouse_click = (-1, -1)
@@ -35,24 +35,6 @@ class menu():
             self.screen.fill(self.background_color)
             self.screen.blit(self.resources['ground'], (0, self.screen_size[1] - 30))
             self.screen.blit(load_image('new_game_button.png'), new_game_pos)
-
-            # Updates the game display
-            pygame.display.flip()
-
-    def show_choose_char(self):
-        # Setup
-        pygame.display.set_caption(self.caption + ': Choose Character')
-        self.last_mouse_click = (-1, -1)
-        char_properties = {}
-        while True:
-            for event in pygame.event.get():
-                if (event.type == pygame.QUIT):
-                    return (0, '', None)
-                if (event.type == pygame.MOUSEBUTTONDOWN):
-                    self.last_mouse_click = pygame.mouse.get_pos()
-
-            self.screen.fill(self.background_color)
-            self.screen.blit(self.resources['ground'], (0, self.screen_size[1] - 30))
 
             # Updates the game display
             pygame.display.flip()
