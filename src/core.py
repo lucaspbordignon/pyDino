@@ -1,4 +1,4 @@
-from utils import *
+import pygame
 from main_menu import main_menu
 from character_menu import character_menu
 

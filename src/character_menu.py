@@ -1,4 +1,4 @@
-from utils import *
+import pygame
 from dino import dino
 
 
@@ -10,7 +10,7 @@ class character_menu():
         self.screen_size = screen_settings['size']
         self.background_color = screen_settings['color']
         self.caption = screen_settings['caption']
-        self.resources['ground'] = load_image('ground.png')
+        self.resources['ground'] = self.load_image('ground.png')
 
     def show(self):
         # Setup
@@ -34,3 +34,6 @@ class character_menu():
 
             # Updates the game display
             pygame.display.flip()
+
+    def load_image(self, filename):
+        return pygame.image.load(str('../resources/' + filename))

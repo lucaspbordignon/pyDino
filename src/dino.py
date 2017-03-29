@@ -1,14 +1,14 @@
-from utils import *
+import pygame
 
 
 class dino():
     def __init__(self, params):
-        char_types = {
+        self.char_types = {
             0: 'default',
         }
         self.position = params['pos']
-        self.actual_type = char_types[params['type']]
-        self.image = load_image(str(self.actual_type) + '.png')
+        self.actual_type = self.char_types[params['type']]
+        self.image = self.load_image(str(self.actual_type) + '.png')
 
     def get_image(self):
         return self.image
@@ -17,5 +17,8 @@ class dino():
         return self.position
 
     def change_type(self, type_desired):
-        self.actual_type = char_types[type_desired]
-        self.image = load_image(str(self.actual_type) + '.png')
+        self.actual_type = self.char_types[type_desired]
+        self.image = self.load_image(str(self.actual_type) + '.png')
+
+    def load_image(self, filename):
+        return pygame.image.load(str('../resources/' + filename))

@@ -1,4 +1,4 @@
-from utils import *
+import pygame
 
 
 class main_menu():
@@ -8,7 +8,7 @@ class main_menu():
         self.screen_size = screen_settings['size']
         self.background_color = screen_settings['color']
         self.caption = screen_settings['caption']
-        self.resources['ground'] = load_image('ground.png')
+        self.resources['ground'] = self.load_image('ground.png')
 
     def show(self):
         # Setup
@@ -34,7 +34,10 @@ class main_menu():
 
             self.screen.fill(self.background_color)
             self.screen.blit(self.resources['ground'], (0, self.screen_size[1] - 30))
-            self.screen.blit(load_image('new_game_button.png'), new_game_pos)
+            self.screen.blit(self.load_image('new_game_button.png'), new_game_pos)
 
             # Updates the game display
             pygame.display.flip()
+
+    def load_image(self, filename):
+        return pygame.image.load(str('../resources/' + filename))
