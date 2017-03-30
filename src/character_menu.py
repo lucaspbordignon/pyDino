@@ -14,6 +14,7 @@ class character_menu():
         self.dino_params['type'] = 0
         self.dino_params['pos'] = (100, 350)
         self.dino_params['size'] = (44, 47)
+        self.dino_params['name'] = ''
 
     def show(self):
         # Setup
@@ -33,6 +34,7 @@ class character_menu():
                                     self.last_mouse_click)):
                 self.last_mouse_click = (-1, -1)
                 print("Dino selecionado.")
+                return (1, 'main_menu', self.dino)
 
             # Default background
             self.screen.fill(self.background_color)

@@ -7,6 +7,7 @@ class dino():
             0: 'default',
         }
         self.position = params['pos']
+        self.name = params['name']
         self.actual_type = self.char_types[params['type']]
         self.image = self.load_image(str(self.actual_type) + '.png')
 

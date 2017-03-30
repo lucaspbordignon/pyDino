@@ -28,9 +28,7 @@ class game_runner():
 
     def choose_char(self):
         char_menu = character_menu(self.screen, self.screen_settings)
-        self.game_running, self.actual_scene, props = char_menu.show()
-        if (props is not None):
-            self.actual_character['name'] = props['name']
+        self.game_running, self.actual_scene, self.dino = char_menu.show()
 
     def run(self):
         # Displays the window
