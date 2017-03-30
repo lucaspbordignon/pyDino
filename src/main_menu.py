@@ -28,7 +28,6 @@ class main_menu():
                     new_game_pos[0] + new_game_size[0]):
                 if (new_game_pos[1] <= self.last_mouse_click[1] <=
                         new_game_pos[1] + new_game_size[1]):
-                    print('Botão de iniciar novo jogo')
                     self.last_mouse_click = (-1, -1)
                     return (1, 'choose_char')
 
