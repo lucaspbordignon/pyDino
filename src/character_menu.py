@@ -34,7 +34,7 @@ class character_menu():
                                     self.last_mouse_click)):
                 self.last_mouse_click = (-1, -1)
                 print("Dino selecionado.")
-                return (1, 'main_menu', self.dino)
+                return (1, 'start_match', self.dino)
 
             # Default background
             self.screen.fill(self.background_color)

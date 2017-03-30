@@ -6,8 +6,7 @@ class dino():
         self.char_types = {
             0: 'default',
         }
-        self.position = params['pos']
-        self.name = params['name']
+        self.params = params
         self.actual_type = self.char_types[params['type']]
         self.image = self.load_image(str(self.actual_type) + '.png')
 
@@ -15,7 +14,10 @@ class dino():
         return self.image
 
     def get_position(self):
-        return self.position
+        return self.params['pos']
+
+    def set_position(self, value):
+        self.params['pos'] = value
 
     def change_type(self, type_desired):
         self.actual_type = self.char_types[type_desired]

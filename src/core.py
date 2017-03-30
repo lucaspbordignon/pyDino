@@ -1,6 +1,7 @@
 import pygame
 from main_menu import main_menu
 from character_menu import character_menu
+from match import match
 
 
 class game_runner():
@@ -12,6 +13,7 @@ class game_runner():
         self.scenes = {
             'main_menu': self.main_menu,
             'choose_char': self.choose_char,
+            'start_match': self.start_match,
         }
         self.actual_character = {}
         self.screen_settings = {}
@@ -29,6 +31,10 @@ class game_runner():
     def choose_char(self):
         char_menu = character_menu(self.screen, self.screen_settings)
         self.game_running, self.actual_scene, self.dino = char_menu.show()
+
+    def start_match(self):
+        new_match = match(self.screen, self.screen_settings, self.dino)
+        self.game_running, self.actual_scene = new_match.start()
 
     def run(self):
         # Displays the window
