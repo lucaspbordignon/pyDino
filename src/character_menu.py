@@ -33,7 +33,6 @@ class character_menu():
             if (self.button_clicked(self.dino_params['pos'], self.dino_params['size'],
                                     self.last_mouse_click)):
                 self.last_mouse_click = (-1, -1)
-                print("Dino selecionado.")
                 return (1, 'start_match', self.dino)
 
             # Default background
