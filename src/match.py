@@ -14,18 +14,17 @@ class match():
         self.caption = screen_settings['caption']
         # Media
         self.resources['ground'] = self.load_image('ground.png')
-        self.resources['cactus'] = self.load_image('cactus.png')
         # General
-        self.ground['size'] = (self.resources['ground'].get_width(), self.resources['ground'].get_height() + 18)
-        self.ground['pos'] = (0, self.screen_size[1] - self.ground['size'][1])
-        self.ground['y_threshold'] = self.ground['pos'][1] + self.ground['size'][1] / 2
+        ground_x = self.resources['ground'].get_width()
+        ground_y = self.resources['ground'].get_height()
+        self.ground['size'] = (ground_x, ground_y)
+        self.ground['pos'] = (0, self.screen_size[1] - ground_y)
+        self.ground['y_threshold'] = self.ground['pos'][1] + ground_y / 2
         self.dino = dino
-        self.enemy = enemy()
-        enemy_pos = (self.screen_size[0], self.ground['y_threshold'] - self.enemy.get_size()[1])
-        self.enemy.set_position(enemy_pos)
+        self.enemy = enemy(self.screen_size, self.ground)
         self.map = selected_map
         self.smoothness_rate = 0.3
-        self.enemy_move_speed = 4
+        self.enemy_speed = 4
 
     def start(self):
         # Setup
@@ -62,7 +61,7 @@ class match():
             enemy_pos = self.enemy.get_position()
             if (not enemy_pos[0]):
                 enemy_pos = (self.screen_size[0], enemy_pos[1])
-            self.enemy.set_position((enemy_pos[0] - self.enemy_move_speed, enemy_pos[1]))
+            self.enemy.set_position((enemy_pos[0] - self.enemy_speed, enemy_pos[1]))
             if (self.enemy_hitted(self.dino, self.enemy)):
                 print('Bateu')
 

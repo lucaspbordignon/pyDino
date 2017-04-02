@@ -2,10 +2,10 @@ import pygame
 
 
 class enemy():
-    def __init__(self, media_name='cactus.png'):
+    def __init__(self, screen_size, ground, media_name='cactus.png'):
         self.image = self.load_image(media_name)
-        self.position = (0, 0)
         self.size = (self.image.get_width(), self.image.get_height())
+        self.position = (screen_size[0], ground['y_threshold'] - self.size[1])
 
     def get_position(self):
         return self.position
