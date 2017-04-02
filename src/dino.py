@@ -10,7 +10,7 @@ class dino():
         self.actual_type = self.char_types[params['type']]
         self.image = self.load_image(str(self.actual_type) + '.png')
         self.size = size
-        self.movement = 0
+        self.movement = 1
         self.jumping = False
 
     def get_image(self):
