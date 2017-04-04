@@ -63,7 +63,7 @@ class match():
                 enemy_pos = (self.screen_size[0], enemy_pos[1])
             self.enemy.set_position((enemy_pos[0] - self.enemy_speed, enemy_pos[1]))
             if (self.enemy_hitted(self.dino, self.enemy)):
-                print('Bateu')
+                return(1, 'choose_char')
 
             # Updates the game display
             self.screen.blit(self.dino.get_image(), self.dino.get_position())
