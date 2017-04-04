@@ -12,6 +12,7 @@ class dino():
         self.size = size
         self.movement = 1
         self.jumping = False
+        self.lives = 1
 
     def get_image(self):
         return self.image
@@ -25,6 +26,9 @@ class dino():
     def get_size(self):
         return self.size
 
+    def get_lives(self):
+        return self.lives
+
     def is_jumping(self):
         return self.jumping
 
@@ -36,6 +40,9 @@ class dino():
 
     def set_jumping(self, value):
         self.jumping = value
+
+    def set_lives(self, value):
+        self.lives = value
 
     def change_type(self, type_desired):
         self.actual_type = self.char_types[type_desired]

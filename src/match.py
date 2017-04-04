@@ -63,7 +63,9 @@ class match():
                 enemy_pos = (self.screen_size[0], enemy_pos[1])
             self.enemy.set_position((enemy_pos[0] - self.enemy_speed, enemy_pos[1]))
             if (self.enemy_hitted(self.dino, self.enemy)):
-                return(1, 'choose_char')
+                self.dino.set_lives(self.dino.get_lives() - 1)
+                if (self.dino.get_lives() == 0):
+                    return(1, 'choose_char')
 
             # Updates the game display
             self.screen.blit(self.dino.get_image(), self.dino.get_position())
