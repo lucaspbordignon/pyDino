@@ -60,10 +60,13 @@ class match():
             # Enemies
             enemy_pos = self.enemy.get_position()
             if (not enemy_pos[0]):
+                self.enemy.__init__(self.screen_size, self.ground)
                 enemy_pos = (self.screen_size[0], enemy_pos[1])
             self.enemy.set_position((enemy_pos[0] - self.enemy_speed, enemy_pos[1]))
-            if (self.enemy_hitted(self.dino, self.enemy)):
+            if (self.enemy_hitted(self.dino, self.enemy) and not self.enemy.get_alreadyHit()): 
+                self.enemy.set_alreadyHit(True)
                 self.dino.set_lives(self.dino.get_lives() - 1)
+                print(self.dino.get_lives())
                 if (self.dino.get_lives() == 0):
                     return(1, 'choose_char')
 

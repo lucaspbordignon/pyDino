@@ -6,6 +6,7 @@ class enemy():
         self.image = self.load_image(media_name)
         self.size = (self.image.get_width(), self.image.get_height())
         self.position = (screen_size[0], ground['y_threshold'] - self.size[1])
+        self.alreadyHit = False
 
     def get_position(self):
         return self.position
@@ -15,6 +16,12 @@ class enemy():
 
     def get_size(self):
         return self.size
+
+    def get_alreadyHit(self):
+        return self.alreadyHit
+
+    def set_alreadyHit(self, value):
+        self.alreadyHit = value
 
     def set_position(self, value):
         self.position = value

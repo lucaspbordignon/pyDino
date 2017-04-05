@@ -5,6 +5,7 @@ class dino():
     def __init__(self, params, size=(44, 47)):
         self.char_types = {
             0: 'default',
+            1: 'albino',
         }
         self.params = params
         self.actual_type = self.char_types[params['type']]
@@ -12,7 +13,7 @@ class dino():
         self.size = size
         self.movement = 1
         self.jumping = False
-        self.lives = 1
+        self.lives = 2
 
     def get_image(self):
         return self.image
