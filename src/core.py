@@ -2,6 +2,7 @@ import pygame
 from main_menu import main_menu
 from character_menu import character_menu
 from match import match
+from game_over import game_over
 
 
 class game_runner():
@@ -38,8 +39,8 @@ class game_runner():
         self.game_running, self.actual_scene = new_match.start()
 
     def game_over(self):
-        game_over = game_over(self.screen, self.screen_settings)
-        self.game_running, self.actual_scene = game_over.show()
+        gameOver = game_over(self.screen, self.screen_settings)
+        self.game_running, self.actual_scene = gameOver.show()
 
     def run(self):
         # Displays the window

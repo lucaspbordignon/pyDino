@@ -13,8 +13,8 @@ class game_over():
     def show(self):
         pygame.display.set_caption(self.caption + ': Game Over')
         self.last_mouse_click = (-1, -1)
-        game_over_pos = ()
-        game_over_size = ()
+        game_over_pos = (self.screen_size[0]*0.4, self.screen_size[1]*0.5)
+        game_over_size = (159, 29)
         while True:
             for event in pygame.event.get():
                 if (event.type == pygame.QUIT):

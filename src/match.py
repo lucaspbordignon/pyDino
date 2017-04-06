@@ -68,7 +68,7 @@ class match():
                 self.dino.set_lives(self.dino.get_lives() - 1)
                 print(self.dino.get_lives())
                 if (self.dino.get_lives() == 0):
-                    return(1, 'choose_char')
+                    return(1, 'game_over')
 
             # Updates the game display
             self.screen.blit(self.dino.get_image(), self.dino.get_position())
