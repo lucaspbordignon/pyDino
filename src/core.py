@@ -14,6 +14,7 @@ class game_runner():
             'main_menu': self.main_menu,
             'choose_char': self.choose_char,
             'start_match': self.start_match,
+            'game_over': self.game_over,
         }
         self.actual_character = {}
         self.screen_settings = {}
@@ -35,6 +36,10 @@ class game_runner():
     def start_match(self):
         new_match = match(self.screen, self.screen_settings, self.dino)
         self.game_running, self.actual_scene = new_match.start()
+
+    def game_over(self):
+        game_over = game_over(self.screen, self.screen_settings)
+        self.game_running, self.actual_scene = game_over.show()
 
     def run(self):
         # Displays the window
