@@ -27,6 +27,7 @@ class game_over():
                 self.screen.fill(self.background_color)
                 self.screen.blit(self.resources['ground'], (0, self.screen_size[1] - 30))
                 self.screen.blit(self.load_image('game_over_msg.png'), game_over_pos)
+                self.screen.blit(self.load_image('dino_dead.png'), game_over_pos)
 
                 pygame.display.flip()
 
