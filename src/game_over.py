@@ -9,29 +9,26 @@ class game_over():
         self.background_color = screen_settings['color']
         self.caption = screen_settings['caption']
         self.resources['ground'] = self.load_image('ground.png')
+        self.game_over_pos = (self.screen_size[0]*0.4, self.screen_size[1]*0.5)
+        self.game_over_size = (159, 29)
+
+    def blit_images(self):
+        self.screen.fill(self.background_color)
+        self.screen.blit(self.resources['ground'], (0, self.screen_size[1] - 30))
+        self.screen.blit(self.load_image('game_over_msg.png'), self.game_over_pos)
+        self.screen.blit(self.load_image('dino_dead.png'), self.game_over_pos)
+        pygame.display.flip()
 
     def show(self):
         pygame.display.set_caption(self.caption + ': Game Over')
         self.last_mouse_click = (-1, -1)
-        game_over_pos = (self.screen_size[0]*0.4, self.screen_size[1]*0.5)
-        game_over_size = (159, 29)
         while True:
             for event in pygame.event.get():
                 if (event.type == pygame.QUIT):
                     return (0, '')
                 if (event.type == pygame.MOUSEBUTTONDOWN):
                     self.last_mouse_click = pygame.mouse.get_pos()
-
-
-
-                self.screen.fill(self.background_color)
-                self.screen.blit(self.resources['ground'], (0, self.screen_size[1] - 30))
-                self.screen.blit(self.load_image('game_over_msg.png'), game_over_pos)
-                self.screen.blit(self.load_image('dino_dead.png'), game_over_pos)
-
-                pygame.display.flip()
-
-
+            self.blit_images()
 
     def load_image(self, filename):
         return pygame.image.load(str('../resources/' + filename))

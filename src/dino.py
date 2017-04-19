@@ -13,7 +13,7 @@ class dino():
         self.size = size
         self.movement = 1
         self.jumping = False
-        self.lives = 2
+        self.lives = 1
 
     def get_image(self):
         return self.image
