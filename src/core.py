@@ -3,6 +3,7 @@ from main_menu import main_menu
 from character_menu import character_menu
 from match import match
 from game_over import game_over
+from login import login
 
 
 class game_runner():
@@ -16,6 +17,7 @@ class game_runner():
             'choose_char': self.choose_char,
             'start_match': self.start_match,
             'game_over': self.game_over,
+            'login': self.login,
         }
         self.actual_character = {}
         self.screen_settings = {}
@@ -23,7 +25,7 @@ class game_runner():
         self.screen_settings['color'] = (250, 250, 250)
         self.screen_settings['caption'] = 'pyDino'
         # Initial setup
-        self.actual_scene = 'main_menu'
+        self.actual_scene = 'login'
         self.game_running = 1
 
     def main_menu(self):
@@ -41,6 +43,10 @@ class game_runner():
     def game_over(self):
         gameOver = game_over(self.screen, self.screen_settings)
         self.game_running, self.actual_scene = gameOver.show()
+
+    def login(self):
+        log = login(self.screen, self.screen_settings)
+        self.game_running, self.actual_scene = log.show()
 
     def run(self):
         # Displays the window
