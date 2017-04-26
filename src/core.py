@@ -1,4 +1,3 @@
-from main_menu import main_menu
 from character_menu import character_menu
 from match import match
 from game_over import game_over
@@ -11,13 +10,10 @@ class game_runner():
     game, including transitions among the different scenes and menus.
     """
     def __init__(self):
+        self.char_types = ['default']
         self.actual_scene = 'main_menu'
         self.game_running = 1
-        self.display = view()
-
-    def main_menu(self):
-        menu = main_menu(self.screen, self.screen_settings)
-        self.game_running, self.actual_scene = menu.show()
+        self.display = view(self.char_types)
 
     def choose_char(self):
         char_menu = character_menu(self.screen, self.screen_settings)

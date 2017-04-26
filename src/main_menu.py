@@ -7,6 +7,7 @@ class main_menu(menu):
         # Setup
         self.screen = screen
         self.screen_settings = screen_settings
+
         # Resources
         self.buttons = {}
         position = (39, 40)
@@ -31,4 +32,5 @@ class main_menu(menu):
             return (1, 'choose_char')
 
         self.screen.blit(new_game_img, new_game_pos)
+        # Default choice
         return (1, 'main_menu')

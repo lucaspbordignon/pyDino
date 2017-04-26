@@ -1,54 +1,41 @@
 import pygame
-from dino import dino
+from menu import menu
 
 
-class character_menu():
-    def __init__(self, surface, screen_settings):
-        self.resources = {}
-        self.dino_params = {}
-        self.screen = surface
-        self.screen_size = screen_settings['size']
-        self.background_color = screen_settings['color']
-        self.caption = screen_settings['caption']
-        self.resources['ground'] = self.load_image('ground.png')
-        self.dino_params['type'] = 0
-        self.dino_params['pos'] = (100, 350)
-        self.dino_params['size'] = (44, 47)
-        self.dino_params['name'] = ''
+class character_menu(menu):
+    def __init__(self, screen, screen_settings, char_types):
+        self.dinos = {}
+        self.screen = screen
+        self.screen_settings = screen_settings
+        self.char_types = char_types
+
+        # Resources
+        for char in self.char_types:
+            image = self.load_image(str(char) + ".png")
+            size = (image.get_width(), image.get_height())
+            self.dinos[char] = (size, image)
 
     def show(self):
         # Setup
-        pygame.display.set_caption(self.caption + ': Choose Character')
-        self.last_mouse_click = (-1, -1)
-        # Default type
-        self.dino = dino(self.dino_params)
-        while True:
-            for event in pygame.event.get():
-                if (event.type == pygame.QUIT):
-                    return (0, '', None)
-                if (event.type == pygame.MOUSEBUTTONDOWN):
-                    self.last_mouse_click = pygame.mouse.get_pos()
+        pygame.display.set_caption(self.screen_settings['caption'] +
+                                   ': Choose Character')
+        last_mouse_click = (-1, -1)
 
-            # Selected Char
-            if (self.button_clicked(self.dino_params['pos'], self.dino_params['size'],
-                                    self.last_mouse_click)):
-                self.last_mouse_click = (-1, -1)
-                return (1, 'start_match', self.dino)
+        for event in pygame.event.get():
+            if (event.type == pygame.QUIT):
+                return (0, '', None)
+            if (event.type == pygame.MOUSEBUTTONDOWN):
+                last_mouse_click = pygame.mouse.get_pos()
 
-            # Default background
-            self.screen.fill(self.background_color)
-            self.screen.blit(self.resources['ground'], (0, self.screen_size[1] - 30))
+        # Check if a char was selected
+        for char in self.char_types:
+            if (self.button_clicked((0, 0), self.dinos[char][0],
+                                    last_mouse_click)):
+                last_mouse_click = (-1, -1)
+                return (1, 'start_match', char)
 
-            self.screen.blit(self.dino.get_image(), self.dino.get_position())
+            self.screen.blit(self.dinos[char][1], (0, 0))
 
-            # Updates the game display
-            pygame.display.flip()
-
-    def button_clicked(self, button_pos, button_size, click_pos):
-        if (button_pos[0] <= click_pos[0] <= button_pos[0] + button_size[0]):
-            if (button_pos[1] <= click_pos[1] <= button_pos[1] + button_size[1]):
-                return True
-        return False
-
-    def load_image(self, filename):
-        return pygame.image.load(str('../resources/' + filename))
+        # Updates the game display
+        pygame.display.flip()
+        return (1, 'choose_char')
