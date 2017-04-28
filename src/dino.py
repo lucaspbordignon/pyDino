@@ -2,7 +2,7 @@ import pygame
 
 
 class dino():
-    def __init__(self, params, size=(44, 47)):
+    def __init__(self, params, size=(44, 47), lives=1):
         self.char_types = {
             0: 'default',
             1: 'albino',
@@ -13,7 +13,7 @@ class dino():
         self.size = size
         self.movement = 1
         self.jumping = False
-        self.lives = 1
+        self.lives = lives
 
     def get_image(self):
         return self.image

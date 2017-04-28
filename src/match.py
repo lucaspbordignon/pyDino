@@ -4,7 +4,6 @@ from enemy import enemy
 
 class match():
     def __init__(self, surface, screen_settings, dino, selected_map='default'):
-        self.resources = {}
         self.ground = {}
         # Frame
         self.clock = pygame.time.Clock()
@@ -13,7 +12,7 @@ class match():
         self.background_color = screen_settings['color']
         self.caption = screen_settings['caption']
         # Media
-        self.resources['ground'] = self.load_image('ground.png')
+        self.resources = self.load_media()
         # General
         ground_x = self.resources['ground'].get_width()
         ground_y = self.resources['ground'].get_height()
@@ -63,12 +62,14 @@ class match():
                 self.enemy.__init__(self.screen_size, self.ground)
                 enemy_pos = (self.screen_size[0], enemy_pos[1])
             self.enemy.set_position((enemy_pos[0] - self.enemy_speed, enemy_pos[1]))
-            if (self.enemy_hitted(self.dino, self.enemy) and not self.enemy.get_alreadyHit()): 
+            if (self.enemy_hitted(self.dino, self.enemy) and not self.enemy.get_alreadyHit()):
                 self.enemy.set_alreadyHit(True)
                 self.dino.set_lives(self.dino.get_lives() - 1)
-                print(self.dino.get_lives())
                 if (self.dino.get_lives() == 0):
                     return(1, 'game_over')
+
+            # Lives
+            self.show_lives(self.dino, (40, 40))
 
             # Updates the game display
             self.screen.blit(self.dino.get_image(), self.dino.get_position())
@@ -96,6 +97,26 @@ class match():
             if (dino_pos[1] + dino_size[1] >= enemy_pos[1]):
                 return True
         return False
+
+    def load_media(self):
+        resources = {}
+        numbers = {str(i): self.load_image(str(i) + '.png') for i in range(10)}
+        resources['ground'] = self.load_image('ground.png')
+        resources['numbers'] = numbers
+        return resources
+
+    def show_lives(self, dino, pos):
+        lives = str(dino.get_lives())
+        if (len(lives) < 2):
+            images = (self.resources['numbers']['0'],
+                      self.resources['numbers'][lives])
+        else:
+            images = (self.resources['numbers'][lives[0]],
+                      self.resources['numbers'][lives[1]])
+        position = (pos, (pos[0] + images[0].get_width(), pos[1]))
+
+        self.screen.blit(images[0], position[0])
+        self.screen.blit(images[1], position[1])
 
     def load_image(self, filename):
         return pygame.image.load(str('../resources/' + filename))
