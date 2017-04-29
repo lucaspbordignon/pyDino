@@ -22,8 +22,6 @@ class match():
         self.dino = dino
         self.enemy = enemy(self.screen_size, self.ground)
         self.map = selected_map
-        self.smoothness_rate = 0.3
-        self.enemy_speed = 4
 
     def start(self):
         # Setup
@@ -44,24 +42,9 @@ class match():
             self.screen.blit(self.resources['ground'], self.ground['pos'])
 
             # Movement
-            dino_movement = self.dino.get_movement()
-            if (dino_movement):
-                new_movement_rate = dino_movement - (self.smoothness_rate)
-                self.dino.set_movement(new_movement_rate)
-
-            # Ground
-            actual_pos = self.ground_threshold()
-
-            # Recalculates the dino pos
-            new_pos = (actual_pos[0], actual_pos[1] - self.dino.get_movement())
-            self.dino.set_position(new_pos)
+            self.move_all_objects()
 
             # Enemies
-            enemy_pos = self.enemy.get_position()
-            if (not enemy_pos[0]):
-                self.enemy.__init__(self.screen_size, self.ground)
-                enemy_pos = (self.screen_size[0], enemy_pos[1])
-            self.enemy.set_position((enemy_pos[0] - self.enemy_speed, enemy_pos[1]))
             if (self.enemy_hitted(self.dino, self.enemy) and not self.enemy.get_alreadyHit()):
                 self.enemy.set_alreadyHit(True)
                 self.dino.set_lives(self.dino.get_lives() - 1)
@@ -72,8 +55,6 @@ class match():
             self.show_lives(self.dino, (40, 40))
 
             # Updates the game display
-            self.screen.blit(self.dino.get_image(), self.dino.get_position())
-            self.screen.blit(self.enemy.get_image(), self.enemy.get_position())
             pygame.display.flip()
             self.clock.tick(60)
 
@@ -117,6 +98,22 @@ class match():
 
         self.screen.blit(images[0], position[0])
         self.screen.blit(images[1], position[1])
+
+    def move_all_objects(self, velocity=5):
+        # Dino
+        self.dino.jump(self.ground_threshold())
+        # Enemies
+        enemy_pos = self.enemy.get_position()
+        if (not enemy_pos[0]):
+            enemy_pos = (self.screen_size[0], enemy_pos[1])
+        self.enemy.set_position((enemy_pos[0] - velocity, enemy_pos[1]))
+        # Ground
+        self.ground['pos'] = (self.ground['pos'][0] - velocity, self.ground['pos'][1])
+        if (self.ground['pos'][0] + self.ground['size'][0] == self.screen_size[0]):
+            self.ground['pos'] = (0, self.ground['pos'][1])
+
+        self.screen.blit(self.enemy.get_image(), self.enemy.get_position())
+        self.screen.blit(self.dino.get_image(), self.dino.get_position())
 
     def load_image(self, filename):
         return pygame.image.load(str('../resources/' + filename))
