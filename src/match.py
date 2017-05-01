@@ -127,6 +127,7 @@ class match():
         # Enemies
         enemy_pos = self.enemy.get_position()
         if (not enemy_pos[0]):
+            self.enemy.set_alreadyHit(False)
             enemy_pos = (self.screen_size[0], enemy_pos[1])
         self.enemy.set_position((enemy_pos[0] - velocity, enemy_pos[1]))
         # Ground
