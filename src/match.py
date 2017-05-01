@@ -1,9 +1,10 @@
 import pygame
 from enemy import enemy
+from coin import coin
 
 
 class match():
-    def __init__(self, surface, screen_settings, dino, selected_map='default'):
+    def __init__(self, surface, screen_settings, dino, difficulty=1):
         self.ground = {}
         # Frame
         self.clock = pygame.time.Clock()
@@ -21,7 +22,8 @@ class match():
         self.ground['y_threshold'] = self.ground['pos'][1] + ground_y / 2
         self.dino = dino
         self.enemy = enemy(self.screen_size, self.ground)
-        self.map = selected_map
+        self.coin = coin((self.screen_size[0], self.screen_size[1] - 170))
+        self.difficulty = difficulty
 
     def start(self):
         # Setup
@@ -52,7 +54,14 @@ class match():
                     return(1, 'game_over')
 
             # Lives
-            self.show_lives(self.dino, (40, 40))
+            self.show_lives(self.dino)
+
+            # Coins
+            self.show_coins(self.dino)
+            if (self.coin.hitted(self.dino.get_position(), self.dino.get_size())):
+                self.dino.set_coins(1, type='increment')
+                del self.coin
+                self.coin = coin((self.screen_size[0], self.screen_size[1] - 170))
 
             # Updates the game display
             pygame.display.flip()
@@ -86,7 +95,7 @@ class match():
         resources['numbers'] = numbers
         return resources
 
-    def show_lives(self, dino, pos):
+    def show_lives(self, dino, pos=(40, 40)):
         lives = str(dino.get_lives())
         if (len(lives) < 2):
             images = (self.resources['numbers']['0'],
@@ -94,6 +103,19 @@ class match():
         else:
             images = (self.resources['numbers'][lives[0]],
                       self.resources['numbers'][lives[1]])
+        position = (pos, (pos[0] + images[0].get_width(), pos[1]))
+
+        self.screen.blit(images[0], position[0])
+        self.screen.blit(images[1], position[1])
+
+    def show_coins(self, dino, pos=(150, 40)):
+        coins = str(dino.get_coins())
+        if (len(coins) < 2):
+            images = (self.resources['numbers']['0'],
+                      self.resources['numbers'][coins])
+        else:
+            images = (self.resources['numbers'][coins[0]],
+                      self.resources['numbers'][coins[1]])
         position = (pos, (pos[0] + images[0].get_width(), pos[1]))
 
         self.screen.blit(images[0], position[0])
@@ -111,8 +133,14 @@ class match():
         self.ground['pos'] = (self.ground['pos'][0] - velocity, self.ground['pos'][1])
         if (self.ground['pos'][0] + self.ground['size'][0] == self.screen_size[0]):
             self.ground['pos'] = (0, self.ground['pos'][1])
+        # Coins
+        coin_pos = self.coin.get_position()
+        self.coin.set_position((coin_pos[0] - velocity, coin_pos[1]))
+        if (self.coin.get_position()[0] <= 0):
+            self.coin = coin((self.screen_size[0], self.screen_size[1] - 170))
 
         self.screen.blit(self.enemy.get_image(), self.enemy.get_position())
+        self.screen.blit(self.coin.get_image(), self.coin.get_position())
         self.screen.blit(self.dino.get_image(), self.dino.get_position())
 
     def load_image(self, filename):

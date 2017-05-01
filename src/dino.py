@@ -2,7 +2,7 @@ import pygame
 
 
 class dino():
-    def __init__(self, params, lives=1, smoothness_rate=0.3):
+    def __init__(self, params, lives=3, smoothness_rate=0.3):
         self.char_types = {
             0: 'default',
             1: 'albino',
@@ -15,6 +15,7 @@ class dino():
         self._smoothness_rate = smoothness_rate
         self._jumping = False
         self._lives = lives
+        self._coins = 0
 
     def get_image(self):
         return self._image
@@ -31,6 +32,9 @@ class dino():
     def get_lives(self):
         return self._lives
 
+    def get_coins(self):
+        return self._coins
+
     def is_jumping(self):
         return self._jumping
 
@@ -45,6 +49,12 @@ class dino():
 
     def set_lives(self, value):
         self._lives = value
+
+    def set_coins(self, value, type='default'):
+        if (type is 'default'):
+            self._coins = value
+        if (type is 'increment'):
+            self._coins += value
 
     def jump(self, threshold):
         if (self._movement):
