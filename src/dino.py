@@ -9,7 +9,7 @@ class dino():
         }
         self.params = params
         self.actual_type = self.char_types[params['type']]
-        self._image = self.load_image(str(self.actual_type) + '.png')
+        self._image = pygame.image.load('../resources/' + self.actual_type + '.png')
         self._size = (self._image.get_width(), self._image.get_height())
         self._movement = 1
         self._smoothness_rate = smoothness_rate
@@ -64,7 +64,4 @@ class dino():
 
     def change_type(self, type_desired):
         self.actual_type = self.char_types[type_desired]
-        self._image = self.load_image(str(self.actual_type) + '.png')
-
-    def load_image(self, filename):
-        return pygame.image.load(str('../resources/' + filename))
+        self._image = pygame.image.load('../resources/' + self.actual_type + '.png')

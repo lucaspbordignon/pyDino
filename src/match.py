@@ -90,8 +90,8 @@ class match():
 
     def load_media(self):
         resources = {}
-        numbers = {str(i): self.load_image(str(i) + '.png') for i in range(10)}
-        resources['ground'] = self.load_image('ground.png')
+        numbers = {str(i): pygame.image.load('../resources/' + str(i) + '.png') for i in range(10)}
+        resources['ground'] = pygame.image.load('../resources/ground.png')
         resources['numbers'] = numbers
         return resources
 
@@ -143,6 +143,3 @@ class match():
         self.screen.blit(self.enemy.get_image(), self.enemy.get_position())
         self.screen.blit(self.coin.get_image(), self.coin.get_position())
         self.screen.blit(self.dino.get_image(), self.dino.get_position())
-
-    def load_image(self, filename):
-        return pygame.image.load(str('../resources/' + filename))

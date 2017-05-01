@@ -10,7 +10,7 @@ class character_menu():
         self.screen_size = screen_settings['size']
         self.background_color = screen_settings['color']
         self.caption = screen_settings['caption']
-        self.resources['ground'] = self.load_image('ground.png')
+        self.resources['ground'] = pygame.image.load('../resources/ground.png')
         self.dino_params['type'] = 0
         self.dino_params['pos'] = (100, 350)
         self.dino_params['size'] = (44, 47)
@@ -49,6 +49,3 @@ class character_menu():
             if (button_pos[1] <= click_pos[1] <= button_pos[1] + button_size[1]):
                 return True
         return False
-
-    def load_image(self, filename):
-        return pygame.image.load(str('../resources/' + filename))
