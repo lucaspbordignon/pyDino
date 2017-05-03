@@ -4,18 +4,16 @@ from menu import menu
 
 class character_menu(menu):
     def __init__(self, screen, screen_settings, char_types):
-        self.dinos = {}
         self.screen = screen
         self.screen_settings = screen_settings
         self.char_types = char_types
 
-        # Resources
-        for char in self.char_types:
-            image = self.load_image(str(char) + ".png")
-            size = (image.get_width(), image.get_height())
-            self.dinos[char] = (size, image)
-
     def show(self):
+        """
+            Shows the character menu. The options of characters will be
+        displayed and the use can select which of them he wants to play
+        with. If not selected, the system must stay at this state.
+        """
         # Setup
         pygame.display.set_caption(self.screen_settings['caption'] +
                                    ': Choose Character')
@@ -23,19 +21,27 @@ class character_menu(menu):
 
         for event in pygame.event.get():
             if (event.type == pygame.QUIT):
-                return (0, '', None)
+                return (False, '', None)
             if (event.type == pygame.MOUSEBUTTONDOWN):
                 last_mouse_click = pygame.mouse.get_pos()
 
         # Check if a char was selected
-        for char in self.char_types:
-            if (self.button_clicked((0, 0), self.dinos[char][0],
-                                    last_mouse_click)):
-                last_mouse_click = (-1, -1)
-                return (1, 'start_match', char)
+        selected, char = self.check_selected(last_mouse_click)
+        if (selected):
+            return (True, 'start_match', char)
 
-            self.screen.blit(self.dinos[char][1], (0, 0))
+        # If no action was taken
+        return (True, 'choose_char', None)
 
-        # Updates the game display
-        pygame.display.flip()
-        return (1, 'choose_char')
+    def check_selected(self, last_click):
+        """
+            Checks if a character was selected, based on the char size and
+        position. Returns the result and the type, if selected.
+        """
+        for char in self.char_types.values():
+            if (self.button_clicked(char.get_position(),
+                                    char.get_size(),
+                                    last_click)):
+                return (True, char)
+            self.screen.blit(char.get_image(), char.get_position())
+        return (False, '')

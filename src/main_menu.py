@@ -10,9 +10,10 @@ class main_menu(menu):
 
         # Resources
         self.buttons = {}
-        position = (39, 40)
-        size = (158, 29)
-        self.buttons['new_game'] = (position, size, self.load_image('new_game_button.png'))
+        position = (40, 40)
+        img = self.load_image('new_game_button.png')
+        size = (img.get_width(), img.get_height())
+        self.buttons['new_game'] = (position, size, img)
 
     def show(self):
         # Setup
@@ -21,16 +22,20 @@ class main_menu(menu):
         last_mouse_click = (-1, -1)
         for event in pygame.event.get():
             if (event.type == pygame.QUIT):
-                return (0, '')
+                return (False, '', None)
             if (event.type == pygame.MOUSEBUTTONDOWN):
                 last_mouse_click = pygame.mouse.get_pos()
 
         # New game button
-        new_game_pos, new_game_size, new_game_img = self.buttons['new_game']
-        if (self.button_clicked(new_game_pos, new_game_size, last_mouse_click)):
-            last_mouse_click = (-1, -1)
-            return (1, 'choose_char')
+        if (self.show_button(last_mouse_click)):
+            return (True, 'choose_char', None)
 
-        self.screen.blit(new_game_img, new_game_pos)
         # Default choice
-        return (1, 'main_menu')
+        return (True, 'main_menu', None)
+
+    def show_button(self, last_click, button='new_game'):
+        button_pos, button_size, button_img = self.buttons[button]
+        if (self.button_clicked(button_pos, button_size, last_click)):
+            return True
+        self.screen.blit(button_img, button_pos)
+        return False
