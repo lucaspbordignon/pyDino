@@ -45,11 +45,12 @@ class game_runner():
         self.game_running, self.actual_scene = gameOver.show()
 
     def login(self):
-        log = login(self.screen, self.screen_settings)
+        log = login()
         self.game_running, self.actual_scene = log.show()
 
     def run(self):
         # Displays the window
+        self.login()
         self.screen = pygame.display.set_mode(self.screen_settings['size'])
         pygame.display.set_caption(self.screen_settings['caption'])
 

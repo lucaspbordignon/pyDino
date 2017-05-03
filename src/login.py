@@ -5,12 +5,8 @@ class login():
     global done
     done = False
 
-    def __init__(self, surface, screen_seetings):
+    def __init__(self):
         self.resources = {}
-        self.screen = surface
-        self.screen_size = screen_seetings['size']
-        self.background_color = screen_seetings['color']
-        self.caption = screen_seetings['caption']
 
     def show(self):
         root = Tk()
