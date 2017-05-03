@@ -2,73 +2,80 @@ import pygame
 from tkinter import *
 
 class login():
+    global done
+    done = False
+
     def __init__(self, surface, screen_seetings):
         self.resources = {}
         self.screen = surface
         self.screen_size = screen_seetings['size']
         self.background_color = screen_seetings['color']
         self.caption = screen_seetings['caption']
-        self.resources['ground'] = self.load_image('ground.png')
 
     def show(self):
         root = Tk()
         self.input_box(root)
-        while True:
-            pygame.display.flip()
+        while not done:
             root.update()
-
-    def load_image(self, filename):
-        return pygame.image.load(str('../resources/' + filename))
+        root.destroy()
+        return(1, 'main_menu')
 
     def input_box(self, master=None):
-        self.fontePadrao = ("Arial", "10")
-        self.primeiroContainer = Frame(master)
-        self.primeiroContainer["pady"] = 10
-        self.primeiroContainer.pack()
+        self.font = ("Arial", "10")
+        self.firstContainer = Frame(master)
+        self.firstContainer["pady"] = 10
+        self.firstContainer.pack()
    
-        self.segundoContainer = Frame(master)
-        self.segundoContainer["padx"] = 20
-        self.segundoContainer.pack()
+        self.secondContainer = Frame(master)
+        self.secondContainer["padx"] = 20
+        self.secondContainer.pack()
    
-        self.terceiroContainer = Frame(master)
-        self.terceiroContainer["padx"] = 20
-        self.terceiroContainer.pack()
+        self.thirdContainer = Frame(master)
+        self.thirdContainer["padx"] = 20
+        self.thirdContainer.pack()
    
-        self.quartoContainer = Frame(master)
-        self.quartoContainer["pady"] = 20
-        self.quartoContainer.pack()
+        self.fourthContainer = Frame(master)
+        self.fourthContainer["pady"] = 20
+        self.fourthContainer.pack()
    
-        self.titulo = Label(self.primeiroContainer, text="Dados do usuário")
-        self.titulo["font"] = ("Arial", "10", "bold")
-        self.titulo.pack()
+        self.title = Label(self.firstContainer, text="Login")
+        self.title["font"] = ("Arial", "10", "bold")
+        self.title.pack()
    
-        self.nomeLabel = Label(self.segundoContainer,text="Nome", font=self.fontePadrao)
-        self.nomeLabel.pack(side=LEFT)
+        self.userLabel = Label(self.secondContainer,text="Username", font=self.font)
+        self.userLabel.pack(side=LEFT)
    
-        self.nome = Entry(self.segundoContainer)
-        self.nome["width"] = 30
-        self.nome["font"] = self.fontePadrao
-        self.nome.pack(side=LEFT)
+        self.user = Entry(self.secondContainer)
+        self.user["width"] = 30
+        self.user["font"] = self.font
+        self.user.pack(side=LEFT)
    
-        self.senhaLabel = Label(self.terceiroContainer, text="Senha", font=self.fontePadrao)
-        self.senhaLabel.pack(side=LEFT)
+        self.passwordLabel = Label(self.thirdContainer, text="Password", font=self.font)
+        self.passwordLabel.pack(side=LEFT)
    
-        self.senha = Entry(self.terceiroContainer)
-        self.senha["width"] = 30
-        self.senha["font"] = self.fontePadrao
-        self.senha["show"] = "*"
-        self.senha.pack(side=LEFT)
+        self.password = Entry(self.thirdContainer)
+        self.password["width"] = 30
+        self.password["font"] = self.font
+        self.password["show"] = "*"
+        self.password.pack(side=LEFT)
    
-        self.autenticar = Button(self.quartoContainer)
-        self.autenticar["text"] = "Autenticar"
-        self.autenticar["font"] = ("Calibri", "8")
-        self.autenticar["width"] = 12
-        self.autenticar["command"] = self.return_menu
-        self.autenticar.pack()
+        self.autenticate = Button(self.fourthContainer)
+        self.autenticate["text"] = "Login"
+        self.autenticate["font"] = ("Calibri", "8")
+        self.autenticate["width"] = 12
+        self.autenticate["command"] = self.return_menu
+        self.autenticate.pack()
    
-        self.mensagem = Label(self.quartoContainer, text="", font=self.fontePadrao)
-        self.mensagem.pack()
+        self.message = Label(self.fourthContainer, text="", font=self.font)
+        self.message.pack()
 
-    def return_menu(self, master=None):
-        master.destroy()
-        return(1, 'main_menu')
+    def return_menu(self):
+        user = self.user.get()
+        password = self.password.get()
+        if user == "adm" and password == "adm":
+            global done
+            done = True
+            self.message["text"] = "Sucess"
+        else:
+            self.message["text"] = "Username or password invalid"
+
