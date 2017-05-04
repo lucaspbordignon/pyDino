@@ -3,6 +3,8 @@ from menu import menu
 
 
 class main_menu(menu):
+    # TODO:
+    # - Receive the object 'view' as parameter, to avoid calling the blit() here
     def __init__(self, screen, screen_settings):
         # Setup
         self.screen = screen

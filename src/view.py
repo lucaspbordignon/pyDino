@@ -1,15 +1,11 @@
 import pygame
 from main_menu import main_menu
 from character_menu import character_menu
-from match import match
+from game_over import game_over
 
 
 class view():
-    # TODO:
-    # - 'start_match' deve receber um personagem pra começar o jogo
-    # - Implementar as outras classes
-
-    def __init__(self, char_types, extra=None):
+    def __init__(self, char_types):
         self.resources = {}
         self.screen_settings = {}
         self.screen_settings['size'] = (960, 440)
@@ -21,27 +17,88 @@ class view():
         pygame.display.set_caption(self.screen_settings['caption'])
 
         # Resources
-        self.resources['ground'] = pygame.image.load('../resources/ground.png')
+        self.load_media()
+
+        # Utilities
+        self.screen_settings['ground_threshold'] = (
+            self.resources['ground_pos'][1] + self.resources['ground'].get_height() / 2
+        )
 
         # Menus
-        self.scenes = {
+        self.menus = {
             'main_menu': main_menu(self.screen, self.screen_settings),
             'choose_char': character_menu(self.screen, self.screen_settings,
                                           char_types),
-            'start_match': match(self.screen, self.screen_settings, None),
-            #'game_over': self.game_over,
+            'game_over': game_over(self)
         }
 
-        # Initial setup
-        self.extra = extra
+    def get_screen_settings(self):
+        return self.screen_settings
 
-    def show(self, actual_scene='main_menu'):
-        self.screen.fill(self.screen_settings['color'])
-        self.screen.blit(self.resources['ground'],
-                         (0, self.screen_settings['size'][1] - 30))
+    def set_screen_caption(self, caption):
+        pygame.display.set_caption(self.screen_settings['caption'] +
+                                   ': ' + caption)
 
-        running, actual_scene, self.extra = self.scenes[actual_scene].show()
-        # Updates the game display
+    def show_menu(self, actual_scene='main_menu'):
+        """
+        Shows one of the system menus, passed by parameter
+        """
+        self.clear()
+        running, actual_scene, extra = self.menus[actual_scene].show()
+        return running, actual_scene, extra
+
+    def load_media(self):
+        """
+        Loads all the images used.
+        """
+        self.resources['ground'] = pygame.image.load('../resources/ground.png')
+        self.resources['ground_pos'] = (0, self.screen_settings['size'][1] - 30)
+        numbers = {str(i): pygame.image.load('../resources/' + str(i) + '.png')
+                   for i in range(10)}
+        self.resources['numbers'] = numbers
+
+    def display_images(self, dict):
+        """
+        Receives a dictionary and call the pygame.blit() function over all the
+        elements of it. The dictionary must be filled with objects that
+        contains an image and a position.
+        """
+        for obj in dict.values():
+            self.screen.blit(obj.get_image(), obj.get_position())
+
+    def display_single_image(self, image, pos):
+        """
+        Displays just one image at the given position.
+        """
+        self.screen.blit(image, pos)
+
+    def display_int(self, value, position):
+        """
+        Displays an integer, using images, inside the frame at the given
+        position.
+        """
+        value = str(value)
+        if (len(value) < 2):
+            images = (self.resources['numbers']['0'],
+                      self.resources['numbers'][value])
+        else:
+            images = (self.resources['numbers'][value[0]],
+                      self.resources['numbers'][value[1]])
+        position = (position, (position[0] + images[0].get_width(), position[1]))
+
+        self.screen.blit(images[0], position[0])
+        self.screen.blit(images[1], position[1])
+
+    def update(self):
+        """
+        Just update the pygame screen.
+        """
         pygame.display.flip()
 
-        return running, actual_scene
+    def clear(self):
+        """
+        Clear the pygame screen and insert the ground image on it.
+        """
+        self.screen.fill(self.screen_settings['color'])
+        self.screen.blit(self.resources['ground'],
+                         self.resources['ground_pos'])

@@ -43,8 +43,11 @@ class dino():
     def set_jumping(self, value):
         self._jumping = value
 
-    def set_lives(self, value):
-        self._lives = value
+    def set_lives(self, value, type='default'):
+        if (type is 'default'):
+            self._lives = value
+        if (type is 'decrement'):
+            self._lives -= value
 
     def set_coins(self, value, type='default'):
         if (type is 'default'):
@@ -55,4 +58,11 @@ class dino():
     def jump(self, threshold):
         if (self._movement):
             self.set_movement(self._movement - self._smoothness_rate)
-        self.set_position((threshold[0], threshold[1] - self._movement))
+        if (self.get_position()[1] + self.get_size()[1] >= threshold):
+            self.set_movement(0)
+            self.set_jumping(False)
+            self.set_position((self.get_position()[0],
+                               threshold - self.get_size()[1] - 1))
+        else:
+            self.set_position((self.get_position()[0],
+                               self.get_position()[1] - self.get_movement()))
