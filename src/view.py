@@ -26,9 +26,8 @@ class view():
 
         # Menus
         self.menus = {
-            'main_menu': main_menu(self.screen, self.screen_settings),
-            'choose_char': character_menu(self.screen, self.screen_settings,
-                                          char_types),
+            'main_menu': main_menu(self),
+            'choose_char': character_menu(self, char_types),
             'game_over': game_over(self)
         }
 
