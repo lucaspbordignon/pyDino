@@ -49,8 +49,8 @@ class game_runner():
         self.game_running, self.actual_scene = log.show()
 
     def run(self):
-        # Displays the window
         self.login()
+        # Displays the window
         self.screen = pygame.display.set_mode(self.screen_settings['size'])
         pygame.display.set_caption(self.screen_settings['caption'])
 
