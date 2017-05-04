@@ -2,6 +2,7 @@ import pygame
 from main_menu import main_menu
 from character_menu import character_menu
 from game_over import game_over
+from login import login
 
 
 class view():
@@ -28,7 +29,8 @@ class view():
         self.menus = {
             'main_menu': main_menu(self),
             'choose_char': character_menu(self, char_types),
-            'game_over': game_over(self)
+            'game_over': game_over(self),
+            'login': login()
         }
 
     def get_screen_settings(self):

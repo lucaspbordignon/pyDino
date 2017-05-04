@@ -8,6 +8,7 @@ class main_menu(menu):
         self.display = view
 
         # Resources
+        self.buttons = {}
         self.load_media()
 
     def show(self):
@@ -21,13 +22,17 @@ class main_menu(menu):
                 last_mouse_click = pygame.mouse.get_pos()
 
         # New game button
-        if (self.show_button(last_mouse_click)):
+        if (self.show_button(last_mouse_click, 'new_game')):
             return (True, 'choose_char', None)
+
+        # Login button
+        if (self.show_button(last_mouse_click, 'login')):
+            return (True, 'login', None)
 
         # Default choice
         return (True, 'main_menu', None)
 
-    def show_button(self, last_click, button='new_game'):
+    def show_button(self, last_click, button):
         """
         Shows a given button and return True if there's a mouse click on it
         """
@@ -41,8 +46,12 @@ class main_menu(menu):
         """
         Load all images and set it positions
         """
-        self.buttons = {}
-        position = (40, 40)
         img = self.load_image('new_game_button.png')
+        position = (40, 40)
         size = (img.get_width(), img.get_height())
         self.buttons['new_game'] = (position, size, img)
+
+        img = self.load_image('login_msg.png')
+        position = (40, position[1] + size[1] + 40)
+        size = (img.get_width(), img.get_height())
+        self.buttons['login'] = (position, size, img)
