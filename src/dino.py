@@ -12,6 +12,8 @@ class dino():
         self._jumping = False
         self._lives = lives
         self._coins = 0
+        self._initial_position = position
+        self._initial_lives = lives
 
     def get_image(self):
         return self._image
@@ -54,6 +56,12 @@ class dino():
             self._coins = value
         if (type is 'increment'):
             self._coins += value
+
+    def reset(self):
+        self._position = self._initial_position
+        self._lives = self._initial_lives
+        self._coins = 0
+        self._movement = 1
 
     def jump(self, threshold):
         if (self._movement):

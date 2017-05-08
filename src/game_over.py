@@ -18,6 +18,9 @@ class game_over():
         """
         self.display.set_screen_caption('Game Over')
         for event in pygame.event.get():
+            if (event.type == pygame.KEYDOWN):
+                if (event.key == pygame.K_RETURN):
+                    return (True, "main_menu", None)
             if (event.type == pygame.QUIT):
                 return (False, '', None)
 

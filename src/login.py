@@ -5,11 +5,9 @@ class login():
     global done
     done = False
 
-    def __init__(self):
-        self.resources = {}
-
     def show(self):
         root = Tk()
+        root.title("pyDino")
         self.input_box(root)
         while not done:
             root.update()
@@ -64,6 +62,13 @@ class login():
         self.autenticate["command"] = self.return_menu
         self.autenticate.pack()
 
+        self.signUp = Button(self.fourthContainer)
+        self.signUp["text"] = "Sign up"
+        self.signUp["font"] = ("Calibri", "8")
+        self.signUp["width"] = 12
+        self.signUp["command"] = self.sign_up
+        self.signUp.pack()
+
         self.message = Label(self.fourthContainer, text="", font=self.font)
         self.message.pack()
 
@@ -76,3 +81,9 @@ class login():
             self.message["text"] = "Sucess"
         else:
             self.message["text"] = "Username or password invalid"
+
+    def sign_up(self):
+        user = self.user.get()
+        password = self.password.get()
+        if user == "adm":
+            self.message["text"] = "User already sign up"
