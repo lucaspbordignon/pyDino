@@ -8,9 +8,12 @@ class game_over():
         self.screen_size = view.get_screen_settings()['size']
         self.resources['game_over_msg'] = pygame.image.load('../resources/game_over_msg.png')
         self.resources['game_over_char'] = pygame.image.load('../resources/dino_dead.png')
+        self.resources['press_enter'] = pygame.image.load('../resources/press_enter.png')
         self.resources['game_over_pos'] = (self.screen_size[0] * 0.4,
-                                           self.screen_size[1] * 0.5)
+                                           self.screen_size[1] * 0.45)
         self.resources['game_over_size'] = (159, 29)
+        self.resources['press_enter_pos'] = (self.screen_size[0] * 0.37,
+                                             self.screen_size[1] * 0.65)
 
     def show(self):
         """
@@ -28,4 +31,6 @@ class game_over():
                                           self.resources['game_over_pos'])
         self.display.display_single_image(self.resources['game_over_char'],
                                           self.resources['game_over_pos'])
+        self.display.display_single_image(self.resources['press_enter'],
+                                          self.resources['press_enter_pos'])
         return (True, 'game_over', None)

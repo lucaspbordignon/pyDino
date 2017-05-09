@@ -2,7 +2,7 @@ import pygame
 
 
 class dino():
-    def __init__(self, position, type, lives=3, smoothness_rate=0.3):
+    def __init__(self, position, type, lives=1, smoothness_rate=0.3):
         self.actual_type = type
         self._image = pygame.image.load('../resources/' + self.actual_type + '.png')
         self._size = (self._image.get_width(), self._image.get_height())
