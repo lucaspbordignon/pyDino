@@ -6,6 +6,7 @@ class character_menu(menu):
     def __init__(self, view, char_types):
         self.display = view
         self.char_types = char_types
+        self.extra = [None, None]
 
     def show(self):
         """
@@ -26,7 +27,14 @@ class character_menu(menu):
         # Check if a char was selected
         selected, char = self.check_selected(last_mouse_click)
         if (selected):
-            return (True, 'start_match', char)
+            self.extra[0] = char
+
+        selected, level = self.check_level_selected(last_mouse_click)
+        if (selected):
+            self.extra[1] = level
+            
+        if (None not in self.extra):
+            return (True, 'start_match', self.clear())
 
         # If no action was taken
         return (True, 'choose_char', None)
@@ -44,3 +52,22 @@ class character_menu(menu):
                                     last_click)):
                 return (True, char)
         return (False, '')
+
+    def check_level_selected(self, last_click):
+        position = (40, 40)
+        for i in range(1, 3):
+            img = self.display.resources['numbers'][str(i)]
+            size = (img.get_width(), img.get_height())
+            self.display.display_single_image(img, position)
+
+            if (self.button_clicked(position,
+                                    size,
+                                    last_click)):
+                return (True, i)
+            position = (position[0] + size[0] + 5, position[1])
+        return (False, None)
+
+    def clear(self):
+        backup = self.extra
+        self.extra = [None, None]
+        return backup

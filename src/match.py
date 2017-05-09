@@ -4,7 +4,7 @@ from coin import coin
 
 
 class match():
-    def __init__(self, screen_settings, dino, difficulty=1):
+    def __init__(self, screen_settings, extra):
         self.ground = {}
         # Frame
         self.clock = pygame.time.Clock()
@@ -19,10 +19,10 @@ class match():
         ground_y = self.resources['ground'].get_height()
         self.ground['size'] = (ground_x, ground_y)
         self.ground['pos'] = (0, self.screen_size[1] - ground_y)
-        self.dino = dino
+        self.dino = extra[0]
         self.enemy = enemy(self.screen_size, self.ground_limit)
         self.coin = coin((self.screen_size[0], self.screen_size[1] - 170))
-        self.difficulty = difficulty
+        self.difficulty = extra[1]
 
     def run(self):
         # Setup
@@ -58,7 +58,7 @@ class match():
         objects_to_show['char'] = self.dino
         objects_to_show['enemy'] = self.enemy
         objects_to_show['coin'] = self.coin
-        self.clock.tick(60)
+        self.clock.tick(self.difficulty * 60)
         return (True, 'match_running', objects_to_show)
 
     def check_coin_hitted(self):
