@@ -3,24 +3,24 @@ import pygame
 
 class coin():
     def __init__(self, position, value=1):
-        self._image = pygame.image.load('../resources/coin.png')
-        self._position = position
-        self._value = value
+        self.__image = pygame.image.load('../resources/coin.png')
+        self.__position = position
+        self.__value = value
 
     def get_position(self):
-        return self._position
+        return self.__position
 
     def get_size(self):
-        return (self._image.get_width(), self._image.get_height())
+        return (self.__image.get_width(), self.__image.get_height())
 
     def get_image(self):
-        return self._image
+        return self.__image
 
     def value(self):
-        return self._value
+        return self.__value
 
     def set_position(self, value):
-        self._position = value
+        self.__position = value
 
     def hitted(self, char_pos, char_size):
         coin_pos = self.get_position()

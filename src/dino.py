@@ -2,70 +2,70 @@ import pygame
 
 
 class dino():
-    def __init__(self, position, type, lives=3, smoothness_rate=0.3):
+    def __init__(self, position, type, lives=1, smoothness_rate=0.3):
         self.actual_type = type
-        self._image = pygame.image.load('../resources/' + self.actual_type + '.png')
-        self._size = (self._image.get_width(), self._image.get_height())
-        self._position = position
-        self._movement = 1
-        self._smoothness_rate = smoothness_rate
-        self._jumping = False
-        self._lives = lives
-        self._coins = 0
-        self._initial_position = position
-        self._initial_lives = lives
+        self.__image = pygame.image.load('../resources/' + self.actual_type + '.png')
+        self.__size = (self.__image.get_width(), self.__image.get_height())
+        self.__position = position
+        self.__movement = 1
+        self.__smoothness_rate = smoothness_rate
+        self.__jumping = False
+        self.__lives = lives
+        self.__coins = 0
+        self.__initial_position = position
+        self.__initial_lives = lives
 
     def get_image(self):
-        return self._image
+        return self.__image
 
     def get_position(self):
-        return self._position
+        return self.__position
 
     def get_movement(self):
-        return self._movement
+        return self.__movement
 
     def get_size(self):
-        return self._size
+        return self.__size
 
     def get_lives(self):
-        return self._lives
+        return self.__lives
 
     def get_coins(self):
-        return self._coins
+        return self.__coins
 
     def is_jumping(self):
-        return self._jumping
+        return self.__jumping
 
     def set_position(self, value):
-        self._position = value
+        self.__position = value
 
     def set_movement(self, value):
-        self._movement = value
+        self.__movement = value
 
     def set_jumping(self, value):
-        self._jumping = value
+        self.__jumping = value
 
     def set_lives(self, value, type='default'):
         if (type is 'default'):
-            self._lives = value
+            self.__lives = value
         if (type is 'decrement'):
-            self._lives -= value
+            self.__lives -= value
 
     def set_coins(self, value, type='default'):
         if (type is 'default'):
-            self._coins = value
+            self.__coins = value
         if (type is 'increment'):
-            self._coins += value
+            self.__coins += value
 
     def reset(self):
-        self._position = self._initial_position
-        self._lives = self._initial_lives
-        self._coins = 0
-        self._movement = 1
+        self.__position = self.__initial_position
+        self.__lives = self.__initial_lives
+        self.__coins = 0
+        self.__movement = 1
 
     def jump(self, threshold):
-        if (self._movement):
-            self.set_movement(self._movement - self._smoothness_rate)
+        if (self.__movement):
+            self.set_movement(self.__movement - self.__smoothness_rate)
         if (self.get_position()[1] + self.get_size()[1] >= threshold):
             self.set_movement(0)
             self.set_jumping(False)

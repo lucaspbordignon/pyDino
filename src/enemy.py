@@ -3,28 +3,28 @@ import pygame
 
 class enemy():
     def __init__(self, screen_size, ground_threshold, media_name='cactus.png'):
-        self._image = pygame.image.load('../resources/' + media_name)
-        self._size = (self._image.get_width(), self._image.get_height())
-        self._position = (screen_size[0], ground_threshold - self._size[1])
-        self._hitted = False
+        self.__image = pygame.image.load('../resources/' + media_name)
+        self.__size = (self.__image.get_width(), self.__image.get_height())
+        self.__position = (screen_size[0], ground_threshold - self.__size[1])
+        self.__hitted = False
 
     def get_position(self):
-        return self._position
+        return self.__position
 
     def get_image(self):
-        return self._image
+        return self.__image
 
     def get_size(self):
-        return self._size
+        return self.__size
 
     def get_hitted(self):
-        return self._hitted
+        return self.__hitted
 
     def set_hitted(self, value):
-        self._hitted = value
+        self.__hitted = value
 
     def set_position(self, value):
-        self._position = value
+        self.__position = value
 
     def check_hitted(self, object):
         obj_pos = object.get_position()
