@@ -59,12 +59,15 @@ class character_menu(menu):
             img = self.display.resources['numbers'][str(i)]
             size = (img.get_width(), img.get_height())
             self.display.display_single_image(img, position)
+            imgDif = self.display.resources['difficulty']
+            sizeDif = (imgDif.get_width(), imgDif.get_height())
+            self.display.display_single_image(imgDif, (20,20))
 
             if (self.button_clicked(position,
                                     size,
                                     last_click)):
                 return (True, i)
-            position = (position[0] + size[0] + 5, position[1])
+            position = (position[0], position[1] + size[1] + 10)
         return (False, None)
 
     def clear(self):

@@ -57,6 +57,7 @@ class view():
         numbers = {str(i): pygame.image.load('../resources/' + str(i) + '.png')
                    for i in range(10)}
         self.resources['numbers'] = numbers
+        self.resources['difficulty'] = pygame.image.load('../resources/difficulty.png')
 
     def display_images(self, dict):
         """

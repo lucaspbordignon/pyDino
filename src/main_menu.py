@@ -29,6 +29,10 @@ class main_menu(menu):
         if (self.show_button(last_mouse_click, 'login')):
             return (True, 'login', None)
 
+        #pyDino img
+        self.display.display_single_image(self.buttons['pydino'][2],
+                                         self.buttons['pydino'][0])
+
         # Default choice
         return (True, 'main_menu', None)
 
@@ -47,11 +51,16 @@ class main_menu(menu):
         Load all images and set it positions
         """
         img = self.load_image('new_game_button.png')
-        position = (40, 40)
+        position = (213, 300)
         size = (img.get_width(), img.get_height())
         self.buttons['new_game'] = (position, size, img)
 
         img = self.load_image('login_msg.png')
-        position = (40, position[1] + size[1] + 40)
+        position = (586, 300)
         size = (img.get_width(), img.get_height())
         self.buttons['login'] = (position, size, img)
+        
+        img = self.load_image('pydino.png')
+        position = (280, 100)
+        size = (img.get_width(), img.get_height())
+        self.buttons['pydino'] = (position, size, img)

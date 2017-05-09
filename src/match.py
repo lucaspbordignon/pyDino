@@ -84,6 +84,6 @@ class match():
         self.enemy.set_position((enemy_pos[0] - velocity, enemy_pos[1]))
         # Coins
         coin_pos = self.coin.get_position()
-        self.coin.set_position((coin_pos[0] - velocity, coin_pos[1]))
+        self.coin.set_position((coin_pos[0] - (velocity + 1), coin_pos[1]))
         if (self.coin.get_position()[0] <= 0):
             self.coin = coin((self.screen_size[0], self.screen_size[1] - 170))
