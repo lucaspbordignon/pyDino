@@ -32,7 +32,7 @@ class character_menu(menu):
         selected, level = self.check_level_selected(last_mouse_click)
         if (selected):
             self.extra[1] = level
-            
+
         if (None not in self.extra):
             return (True, 'start_match', self.clear())
 
@@ -60,8 +60,7 @@ class character_menu(menu):
             size = (img.get_width(), img.get_height())
             self.display.display_single_image(img, position)
             imgDif = self.display.resources['difficulty']
-            sizeDif = (imgDif.get_width(), imgDif.get_height())
-            self.display.display_single_image(imgDif, (20,20))
+            self.display.display_single_image(imgDif, (20, 20))
 
             if (self.button_clicked(position,
                                     size,

@@ -29,7 +29,7 @@ class main_menu(menu):
         if (self.show_button(last_mouse_click, 'login')):
             return (True, 'login', None)
 
-        #pyDino img
+        # Logo
         self.display.display_single_image(self.buttons['pydino'][2],
                                          self.buttons['pydino'][0])
 
