@@ -1,6 +1,6 @@
-from view import view
-from dino import dino
-from match import match
+from interface.view import view
+from model.dino import dino
+from model.match import match
 
 
 class game_runner():

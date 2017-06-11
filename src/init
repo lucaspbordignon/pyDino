@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from core import game_runner
+from controller.core import game_runner
 
 
 if __name__ == '__main__':

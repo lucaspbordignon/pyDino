@@ -1,5 +1,5 @@
 import pygame
-from menu import menu
+from interface.menu import menu
 
 
 class character_menu(menu):

@@ -1,5 +1,5 @@
 import pygame
-from menu import menu
+from interface.menu import menu
 
 
 class main_menu(menu):
@@ -31,7 +31,7 @@ class main_menu(menu):
 
         # Logo
         self.display.display_single_image(self.buttons['pydino'][2],
-                                         self.buttons['pydino'][0])
+                                          self.buttons['pydino'][0])
 
         # Default choice
         return (True, 'main_menu', None)
@@ -59,7 +59,7 @@ class main_menu(menu):
         position = (586, 300)
         size = (img.get_width(), img.get_height())
         self.buttons['login'] = (position, size, img)
-        
+
         img = self.load_image('pydino.png')
         position = (280, 100)
         size = (img.get_width(), img.get_height())

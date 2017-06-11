@@ -1,8 +1,8 @@
 import pygame
-from main_menu import main_menu
-from character_menu import character_menu
-from game_over import game_over
-from login import login
+from interface.main_menu import main_menu
+from interface.character_menu import character_menu
+from interface.game_over import game_over
+from interface.login import login
 
 
 class view():

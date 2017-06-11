@@ -1,6 +1,6 @@
 import pygame
-from enemy import enemy
-from coin import coin
+from model.enemy import enemy
+from model.coin import coin
 
 
 class match():
