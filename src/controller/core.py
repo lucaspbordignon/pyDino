@@ -38,8 +38,11 @@ class game_runner():
                         self.display.display_int(self.extra.pop('lives'), (40, 40))
                         self.display.display_int(self.extra.pop('coins'), (150, 40))
 
+                        # Power
+                        self.display.display_images(self.extra.pop('power'))
+
                         # Display the game objects
-                        self.display.display_images(self.extra)
+                        self.display.display_images(list(self.extra.values()))
             else:
                 (self.game_running,
                  self.actual_scene,

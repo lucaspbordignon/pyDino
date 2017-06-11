@@ -12,6 +12,7 @@ class login():
         while not done:
             root.update()
         root.destroy()
+        self.done = False
         return(True, 'main_menu', None)
 
     def input_box(self, master=None):

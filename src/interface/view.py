@@ -59,13 +59,14 @@ class view():
         self.resources['numbers'] = numbers
         self.resources['difficulty'] = pygame.image.load('../resources/difficulty.png')
 
-    def display_images(self, dict):
+    def display_images(self, list):
         """
-        Receives a dictionary and call the pygame.blit() function over all the
-        elements of it. The dictionary must be filled with objects that
-        contains an image and a position.
+        Receives a list and call the pygame.blit() function over all the
+        elements of it.
+        The elements of the list must contain the get_image() and
+        get_position() methods.
         """
-        for obj in dict.values():
+        for obj in list:
             self.screen.blit(obj.get_image(), obj.get_position())
 
     def display_single_image(self, image, pos):
