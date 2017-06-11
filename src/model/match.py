@@ -1,6 +1,7 @@
 import pygame
 from model.enemy import enemy
 from model.coin import coin
+from model.power import power
 
 
 class match():
@@ -22,6 +23,7 @@ class match():
         self.dino = extra[0]
         self.enemy = enemy(self.screen_size, self.ground_limit)
         self.coin = coin((self.screen_size[0], self.screen_size[1] - 170))
+        self.powers = []
         self.difficulty = extra[1]
 
     def run(self):
@@ -35,6 +37,8 @@ class match():
                     self.dino.set_jumping(True)
                 if (event.key == pygame.K_DOWN):
                     self.dino.set_movement(-5)
+                if (event.key == pygame.K_h):
+                    self.powers.append(power(self.dino.get_position()))
 
         # Movement
         self.move_all_objects()
@@ -55,6 +59,7 @@ class match():
         objects_to_show = {}
         objects_to_show['lives'] = self.dino.get_lives()
         objects_to_show['coins'] = self.dino.get_coins()
+        objects_to_show['power'] = self.powers
         objects_to_show['char'] = self.dino
         objects_to_show['enemy'] = self.enemy
         objects_to_show['coin'] = self.coin
@@ -74,9 +79,29 @@ class match():
         resources['numbers'] = numbers
         return resources
 
+    def move_all_shots(self):
+        """
+            Takes all the shots, movement them and return a list with it.
+        """
+        moved = []
+        for shot in self.powers:
+            if shot.get_position()[0] > self.screen_size[0]:
+                del shot
+                continue
+            if self.enemy.check_hitted(shot):
+                del shot
+                del self.enemy
+                self.enemy = enemy(self.screen_size, self.ground_limit)
+                continue
+            shot.move()
+            moved.append(shot)
+        return moved
+
     def move_all_objects(self, velocity=5):
         # Dino
         self.dino.jump(self.ground_limit)
+        # Powers
+        self.powers = self.move_all_shots()
         # Enemies
         enemy_pos = self.enemy.get_position()
         if (not enemy_pos[0]):
