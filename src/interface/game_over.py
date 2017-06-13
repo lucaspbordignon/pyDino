@@ -9,14 +9,14 @@ class game_over():
         self.resources['game_over_msg'] = pygame.image.load('../resources/game_over_msg.png')
         self.resources['game_over_char'] = pygame.image.load('../resources/dino_dead.png')
         self.resources['press_enter'] = pygame.image.load('../resources/press_enter.png')
-        self.resources['save_progress'] = pygame.image.load('../resources/dino_leg_up2.png')
+        self.resources['save_msg'] = pygame.image.load('../resources/save_msg.png')
         self.resources['game_over_pos'] = (self.screen_size[0] * 0.4,
                                            self.screen_size[1] * 0.45)
-        self.resources['game_over_size'] = (159, 29)
+        self.resources['game_over_size'] = self.get_size(self.resources['game_over_msg'])
         self.resources['press_enter_pos'] = (self.screen_size[0] * 0.37,
                                              self.screen_size[1] * 0.65)
-        self.resources['save_progress_size'] = (45, 47)
-        self.resources['save_progress_pos'] = (100, 100)
+        self.resources['save_msg_pos'] = (self.resources['press_enter_pos'][0],
+                                          self.resources['press_enter_pos'][1] + 50)
 
     def show(self):
         """
@@ -38,7 +38,11 @@ class game_over():
                                           self.resources['game_over_pos'])
         self.display.display_single_image(self.resources['press_enter'],
                                           self.resources['press_enter_pos'])
-        self.display.display_single_image(self.resources['save_progress'],
-                                          self.resources['save_progress_pos'])
-
+        self.display.display_single_image(self.resources['save_msg'],
+                                          self.resources['save_msg_pos'])
         return (True, 'game_over', None)
+
+    def get_size(self, img):
+        x = img.get_width()
+        y = img.get_height()
+        return (x, y)
