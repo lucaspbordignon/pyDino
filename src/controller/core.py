@@ -84,6 +84,8 @@ class game_runner():
             # Show lives and coins
             self.display.display_int(self.extra.pop('lives'), (40, 40))
             self.display.display_int(self.extra.pop('coins'), (150, 40))
+            self.display.display_static_image('lives_msg', (15, 15))
+            self.display.display_static_image('coins_msg', (125, 15))
 
             # Power
             self.display.display_images(self.extra.pop('power'))

@@ -38,7 +38,9 @@ class match():
                 if (event.key == pygame.K_DOWN):
                     self.dino.set_movement(-5)
                 if (event.key == pygame.K_h):
-                    self.powers.append(power(self.dino.get_position()))
+                    if self.dino.get_coins():
+                        self.dino.set_coins(self.dino.get_coins() - 1)
+                        self.powers.append(power(self.dino.get_position()))
 
         # Movement
         self.move_all_objects()

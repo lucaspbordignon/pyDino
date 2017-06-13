@@ -58,6 +58,11 @@ class view():
                    for i in range(10)}
         self.resources['numbers'] = numbers
         self.resources['difficulty'] = pygame.image.load('../resources/difficulty.png')
+        self.resources['coins_msg'] = pygame.image.load('../resources/coins.png')
+        self.resources['lives_msg'] = pygame.image.load('../resources/lives.png')
+
+    def display_static_image(self, image, pos):
+        self.screen.blit(self.resources[image], pos)
 
     def display_images(self, list):
         """
