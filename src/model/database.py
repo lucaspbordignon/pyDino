@@ -1,7 +1,7 @@
 import sqlite3
 
 
-class Database():
+class database():
     """
             A class tha represents a database. The database engine used is the
             SQLite.
@@ -26,7 +26,7 @@ class Database():
         """
             Adds a row with the given values to the table.
         """
-        self.cursor.execute('''INSERT INTO players(name, type, coins)
+        self.cursor.execute('''REPLACE INTO players(name, type, coins)
                             VALUES(:name, :type, :coins)''',
                             values)
         self.connection.commit()

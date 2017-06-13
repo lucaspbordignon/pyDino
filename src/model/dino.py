@@ -33,8 +33,8 @@ class dino():
     def get_coins(self):
         return self.__coins
 
-    def get_all_atributes(self):
-        return {'type': self.actual_type, 'coins': self.__coins}
+    def get_type(self):
+        return self.actual_type
 
     def is_jumping(self):
         return self.__jumping

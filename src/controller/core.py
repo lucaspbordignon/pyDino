@@ -1,6 +1,7 @@
 from interface.view import view
 from model.dino import dino
 from model.match import match
+from model.database import database
 
 
 class game_runner():
@@ -13,6 +14,7 @@ class game_runner():
             'default': dino((100, 350), 'default')
         }
         self.display = view(self.char_types)
+        self.database = database()
         self.actual_scene = 'main_menu'
         self.game_running = True
         self.match = None
@@ -25,6 +27,19 @@ class game_runner():
         """
         while self.game_running:
             self.display.clear()
+            if (self.actual_scene == 'login'):
+                (self.game_running,
+                 self.actual_scene,
+                 self.username) = self.display.show_menu(self.actual_scene)
+
+            if (self.actual_scene == 'save_progress'):
+                self.database.create_table()
+                self.database.add({'name': self.username,
+                                   'type': self.dino.get_type(),
+                                   'coins': self.dino.get_coins()})
+                self.dino.reset()
+                self.actual_scene = 'main_menu'
+
             if (self.actual_scene == 'start_match'):
                 if (self.extra is not None):
                     self.match = match(self.display.get_screen_settings(), self.extra)
@@ -33,6 +48,10 @@ class game_runner():
 
             if (self.actual_scene == 'match_running'):
                     (self.game_running, self.actual_scene, self.extra) = self.match.run()
+                    if (self.actual_scene == 'game_over'):
+                        self.dino = self.extra
+                        self.extra = None
+
                     if (self.extra is not None):
                         # Show lives and coins
                         self.display.display_int(self.extra.pop('lives'), (40, 40))
@@ -43,9 +62,11 @@ class game_runner():
 
                         # Display the game objects
                         self.display.display_images(list(self.extra.values()))
+
             else:
                 (self.game_running,
                  self.actual_scene,
                  self.extra) = self.display.show_menu(self.actual_scene)
 
             self.display.update()
+        self.database.close()

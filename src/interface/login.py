@@ -13,7 +13,7 @@ class login():
             root.update()
         root.destroy()
         self.done = False
-        return(True, 'main_menu', None)
+        return(True, 'main_menu', self.username)
 
     def input_box(self, master=None):
         self.font = ("Arial", "10")
@@ -74,14 +74,17 @@ class login():
         self.message.pack()
 
     def return_menu(self):
-        user = self.user.get()
+        self.username = self.user.get()
         password = self.password.get()
-        if user == "adm" and password == "adm":
+        if self.username == "adm" and password == "adm":
             global done
             done = True
             self.message["text"] = "Sucess"
         else:
             self.message["text"] = "Username or password invalid"
+
+    def get_username(self):
+        return self.username
 
     def sign_up(self):
         user = self.user.get()

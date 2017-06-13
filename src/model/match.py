@@ -49,8 +49,7 @@ class match():
             self.enemy = enemy(self.screen_size, self.ground_limit)
             self.dino.set_lives(1, type='decrement')
             if (not self.dino.get_lives()):
-                self.dino.reset()
-                return(True, 'game_over', None)
+                return(True, 'game_over', self.dino)
 
         # Coins
         self.check_coin_hitted()
