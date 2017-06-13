@@ -12,6 +12,7 @@ class dino():
         self.__jumping = False
         self.__lives = lives
         self.__coins = 0
+        self.__total_coins = 0
         self.__initial_position = position
         self.__initial_lives = lives
 
@@ -35,6 +36,9 @@ class dino():
 
     def get_type(self):
         return self.actual_type
+
+    def get_total_coins(self):
+        return self.__total_coins
 
     def is_jumping(self):
         return self.__jumping
@@ -63,6 +67,7 @@ class dino():
     def reset(self):
         self.__position = self.__initial_position
         self.__lives = self.__initial_lives
+        self.__total_coins += self.__coins
         self.__coins = 0
         self.__movement = 1
 
