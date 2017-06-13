@@ -17,6 +17,7 @@ class game_runner():
         self.database = database()
         self.actual_scene = 'main_menu'
         self.game_running = True
+        self.dino = None
         self.match = None
         self.extra = None
 
@@ -32,36 +33,26 @@ class game_runner():
                  self.actual_scene,
                  self.username) = self.display.show_menu(self.actual_scene)
 
+            if (self.actual_scene == 'main_menu'):
+                if self.dino:
+                    self.dino.reset()
+                (self.game_running,
+                 self.actual_scene,
+                 self.extra) = self.display.show_menu(self.actual_scene)
+
             if (self.actual_scene == 'save_progress'):
                 self.database.create_table()
                 self.database.add({'name': self.username,
+                                   'password': '',
                                    'type': self.dino.get_type(),
                                    'coins': self.dino.get_coins()})
-                self.dino.reset()
                 self.actual_scene = 'main_menu'
 
             if (self.actual_scene == 'start_match'):
-                if (self.extra is not None):
-                    self.match = match(self.display.get_screen_settings(), self.extra)
-                    self.actual_scene = 'match_running'
-                    self.display.set_screen_caption('Playing')
+                self.start_match()
 
             if (self.actual_scene == 'match_running'):
-                    (self.game_running, self.actual_scene, self.extra) = self.match.run()
-                    if (self.actual_scene == 'game_over'):
-                        self.dino = self.extra
-                        self.extra = None
-
-                    if (self.extra is not None):
-                        # Show lives and coins
-                        self.display.display_int(self.extra.pop('lives'), (40, 40))
-                        self.display.display_int(self.extra.pop('coins'), (150, 40))
-
-                        # Power
-                        self.display.display_images(self.extra.pop('power'))
-
-                        # Display the game objects
-                        self.display.display_images(list(self.extra.values()))
+                self.running_match()
 
             else:
                 (self.game_running,
@@ -70,3 +61,31 @@ class game_runner():
 
             self.display.update()
         self.database.close()
+
+    def start_match(self):
+        """
+            Starts a new empty match.
+        """
+        if (self.extra is not None):
+            self.match = match(self.display.get_screen_settings(), self.extra)
+            self.actual_scene = 'match_running'
+            self.display.set_screen_caption('Playing')
+            self.dino = self.match.get_dino()
+
+    def running_match(self):
+        """
+            Keeps the match running, updating the pictures and all the related
+            objects.
+        """
+        (self.game_running, self.actual_scene, self.extra) = self.match.run()
+
+        if (self.extra is not None):
+            # Show lives and coins
+            self.display.display_int(self.extra.pop('lives'), (40, 40))
+            self.display.display_int(self.extra.pop('coins'), (150, 40))
+
+            # Power
+            self.display.display_images(self.extra.pop('power'))
+
+            # Display the game objects
+            self.display.display_images(list(self.extra.values()))

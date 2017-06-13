@@ -16,18 +16,28 @@ class database():
         """
         try:
             self.cursor.execute('''CREATE TABLE players
-                               (name TEXT PRIMARY KEY, type TEXT, coins INTEGER)
+                               (name TEXT PRIMARY KEY, password TEXT, type TEXT, coins INTEGER)
                                ''')
             self.connection.commit()
         except sqlite3.OperationalError:
             return "Table already exists."
 
+    def add_verify(self, values):
+        """
+            Adds a row with the given values to the table, verifying if there's
+            no row with the same primary key.
+        """
+        self.cursor.execute('''INSERT INTO players(name, password, type, coins)
+                            VALUES(:name, :password, :type, :coins)''',
+                            values)
+        self.connection.commit()
+
     def add(self, values):
         """
             Adds a row with the given values to the table.
         """
-        self.cursor.execute('''REPLACE INTO players(name, type, coins)
-                            VALUES(:name, :type, :coins)''',
+        self.cursor.execute('''REPLACE INTO players(name, password, type, coins)
+                            VALUES(:name, :password, :type, :coins)''',
                             values)
         self.connection.commit()
 
