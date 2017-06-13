@@ -6,7 +6,12 @@ class database():
             A class tha represents a database. The database engine used is the
             SQLite.
     """
+    __single = None
+
     def __init__(self, db_name='players_database.db'):
+        if database.__single:
+            raise Exception("Singleton already instantiated.")
+        database.__single = self
         self.connection = sqlite3.connect(db_name)
         self.cursor = self.connection.cursor()
 
