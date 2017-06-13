@@ -17,6 +17,7 @@ class game_runner():
         self.database = database()
         self.actual_scene = 'main_menu'
         self.game_running = True
+        self.username = None
         self.dino = None
         self.match = None
         self.extra = None
