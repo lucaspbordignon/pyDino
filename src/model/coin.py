@@ -1,11 +1,20 @@
 import pygame
-
+from random import randint
 
 class coin():
-    def __init__(self, position, value=1):
-        self.__image = pygame.image.load('../resources/coin.png')
+    def __init__(self, position):
+        random = randint(0,9)
+        if random >= 3:
+            self.__image = pygame.image.load('../resources/eth.png')
+            self.__value = 1
+        else:
+            if random == 2:
+                self.__image = pygame.image.load('../resources/dogecoin.png')
+                self.__value = 4
+            else:
+                self.__image = pygame.image.load('../resources/bit.png')
+                self.__value = 2
         self.__position = position
-        self.__value = value
 
     def get_position(self):
         return self.__position

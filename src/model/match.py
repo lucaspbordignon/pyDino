@@ -38,8 +38,8 @@ class match():
                 if (event.key == pygame.K_DOWN):
                     self.dino.set_movement(-5)
                 if (event.key == pygame.K_h):
-                    if self.dino.get_coins():
-                        self.dino.set_coins(self.dino.get_coins() - 1)
+                    if self.dino.get_coins() > 4:
+                        self.dino.set_coins(self.dino.get_coins() - 5)
                         self.powers.append(power(self.dino.get_position()))
 
         # Movement
