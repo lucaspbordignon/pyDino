@@ -1,6 +1,6 @@
 import pygame
 from model.enemy import enemy
-from model.coin import coin
+from model.prize import prize
 from model.power import power
 
 
@@ -22,7 +22,7 @@ class match():
         self.ground['pos'] = (0, self.screen_size[1] - ground_y)
         self.dino = extra[0]
         self.enemy = enemy(self.screen_size, self.ground_limit)
-        self.coin = coin((self.screen_size[0], self.screen_size[1] - 170))
+        self.prize = prize((self.screen_size[0], self.screen_size[1] - 170))
         self.powers = []
         self.difficulty = extra[1]
 
@@ -53,8 +53,8 @@ class match():
             if (not self.dino.get_lives()):
                 return(True, 'game_over', None)
 
-        # Coins
-        self.check_coin_hitted()
+        # Prize
+        self.check_prize_hitted()
 
         # Objects to show
         objects_to_show = {}
@@ -63,15 +63,18 @@ class match():
         objects_to_show['power'] = self.powers
         objects_to_show['char'] = self.dino
         objects_to_show['enemy'] = self.enemy
-        objects_to_show['coin'] = self.coin
+        objects_to_show['prize'] = self.prize
         self.clock.tick(self.difficulty * 60)
         return (True, 'match_running', objects_to_show)
 
-    def check_coin_hitted(self):
-        if (self.coin.hitted(self.dino.get_position(), self.dino.get_size())):
-            self.dino.set_coins(self.coin.value(), type='increment')
-            del self.coin
-            self.coin = coin((self.screen_size[0], self.screen_size[1] - 170))
+    def check_prize_hitted(self):
+        if (self.prize.hitted(self.dino.get_position(), self.dino.get_size())):
+            if (self.prize.get_type()):
+                self.dino.set_coins(self.prize.value(), type='increment')
+            else:
+                self.dino.set_lives(self.dino.get_lives() + 1)
+            del self.prize
+            self.prize = prize((self.screen_size[0], self.screen_size[1] - 170))
 
     def load_media(self):
         resources = {}
@@ -108,11 +111,11 @@ class match():
         if (not enemy_pos[0]):
             enemy_pos = (self.screen_size[0], enemy_pos[1])
         self.enemy.set_position((enemy_pos[0] - velocity, enemy_pos[1]))
-        # Coins
-        coin_pos = self.coin.get_position()
-        self.coin.set_position((coin_pos[0] - (velocity + 1), coin_pos[1]))
-        if (self.coin.get_position()[0] <= 0):
-            self.coin = coin((self.screen_size[0], self.screen_size[1] - 170))
+        # Prizes
+        prize_pos = self.prize.get_position()
+        self.prize.set_position((prize_pos[0] - (velocity + 1), prize_pos[1]))
+        if (self.prize.get_position()[0] <= 0):
+            self.prize = prize((self.screen_size[0], self.screen_size[1] - 170))
 
     def get_dino(self):
         return self.dino

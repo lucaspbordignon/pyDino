@@ -1,16 +1,20 @@
 import pygame
 from random import randint
 
-class coin():
+class prize():
     def __init__(self, position):
-        random = randint(0,9)
-        if random >= 3:
+        random = randint(0,19)
+        self.__type = 1
+        if random >= 4:
             self.__image = pygame.image.load('../resources/eth.png')
             self.__value = 1
         else:
             if random == 2:
                 self.__image = pygame.image.load('../resources/dogecoin.png')
                 self.__value = 4
+            elif random == 1:
+                self.__image = pygame.image.load('../resources/heart.png')
+                self.__type = 0
             else:
                 self.__image = pygame.image.load('../resources/bit.png')
                 self.__value = 2
@@ -24,6 +28,9 @@ class coin():
 
     def get_image(self):
         return self.__image
+
+    def get_type(self):
+        return self.__type
 
     def value(self):
         return self.__value
