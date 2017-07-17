@@ -16,3 +16,5 @@ In the choose character menu, you have to click in the number and the dino. <br>
 -Ether = 1 coin <br>
 -Bitcoin = 2 coins <br>
 -Dogecoin = 4 coins(such money)
+
+<img src="resources/cutmypic.png"/>
