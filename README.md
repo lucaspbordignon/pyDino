@@ -27,3 +27,5 @@ In the choose character menu, you have to click in the number and the dino.
   * [Vinicius Macelai](https://github.com/Macelai)
   
   * [Lucas Bordignon](https://github.com/Lucaspbordignon)
+  
+  * [Marcelo Müller](https://github.com/marcelomuller)
