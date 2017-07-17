@@ -3,6 +3,7 @@ A simple game.
 
 ## Usage
 ```
+$ pip install -r requirements.txt
 $ ./init
 ```
 ## How to play
